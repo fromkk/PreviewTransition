@@ -187,19 +187,7 @@ extension ViewController: UICollectionViewDelegate {
         self.previewTransition?.imageView.image = cell.imageView.image
 
         let navigationController: UINavigationController = UINavigationController(rootViewController: previewController)
-        navigationController.transitioningDelegate = self
+        navigationController.transitioningDelegate = self.previewTransition
         self.presentViewController(navigationController, animated: true, completion: nil)
-    }
-}
-
-extension ViewController: UIViewControllerTransitioningDelegate {
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.previewTransition?.direction = PreviewDirection.Open
-        return self.previewTransition
-    }
-
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.previewTransition?.direction = PreviewDirection.Close
-        return self.previewTransition
     }
 }

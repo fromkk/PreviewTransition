@@ -123,3 +123,15 @@ extension PreviewPresentor: UIViewControllerAnimatedTransitioning {
         }
     }
 }
+
+extension PreviewPresentor: UIViewControllerTransitioningDelegate {
+    public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        self.direction = PreviewDirection.Open
+        return self
+    }
+
+    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        self.direction = PreviewDirection.Close
+        return self
+    }
+}

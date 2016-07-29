@@ -24,8 +24,6 @@ class PreviewController: UIViewController {
     override func loadView() {
         super.loadView()
 
-        self.view.backgroundColor = UIColor.clearColor()
-        self.navigationController?.view.backgroundColor = UIColor.clearColor()
         self.navigationItem.leftBarButtonItem = self.closeButton
 
         self.view.addSubview(self.imageView)
