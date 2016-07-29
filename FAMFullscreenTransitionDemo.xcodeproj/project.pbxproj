@@ -14,6 +14,10 @@
 		4F1344F21D4B382500294651 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F1344F01D4B382500294651 /* LaunchScreen.storyboard */; };
 		4F1344FD1D4B382500294651 /* FAMFullscreenTransitionDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1344FC1D4B382500294651 /* FAMFullscreenTransitionDemoTests.swift */; };
 		4F1345081D4B382500294651 /* FAMFullscreenTransitionDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1345071D4B382500294651 /* FAMFullscreenTransitionDemoUITests.swift */; };
+		4F1345171D4B38AC00294651 /* ViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1345161D4B38AC00294651 /* ViewControllerCell.swift */; };
+		4F13451B1D4B3AD500294651 /* PreviewTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F13451A1D4B3AD500294651 /* PreviewTransition.swift */; };
+		4F13451D1D4B475400294651 /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F13451C1D4B475400294651 /* PreviewController.swift */; };
+		4F13451F1D4B593200294651 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F13451E1D4B593200294651 /* UIImageViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,10 @@
 		4F1345031D4B382500294651 /* FAMFullscreenTransitionDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FAMFullscreenTransitionDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1345071D4B382500294651 /* FAMFullscreenTransitionDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAMFullscreenTransitionDemoUITests.swift; sourceTree = "<group>"; };
 		4F1345091D4B382500294651 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4F1345161D4B38AC00294651 /* ViewControllerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerCell.swift; sourceTree = "<group>"; };
+		4F13451A1D4B3AD500294651 /* PreviewTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewTransition.swift; sourceTree = "<group>"; };
+		4F13451C1D4B475400294651 /* PreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
+		4F13451E1D4B593200294651 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +85,7 @@
 		4F1344DB1D4B382400294651 = {
 			isa = PBXGroup;
 			children = (
+				4F1345151D4B382900294651 /* Sources */,
 				4F1344E61D4B382400294651 /* FAMFullscreenTransitionDemo */,
 				4F1344FB1D4B382500294651 /* FAMFullscreenTransitionDemoTests */,
 				4F1345061D4B382500294651 /* FAMFullscreenTransitionDemoUITests */,
@@ -99,6 +108,9 @@
 			children = (
 				4F1344E71D4B382400294651 /* AppDelegate.swift */,
 				4F1344E91D4B382400294651 /* ViewController.swift */,
+				4F1345161D4B38AC00294651 /* ViewControllerCell.swift */,
+				4F13451C1D4B475400294651 /* PreviewController.swift */,
+				4F13451E1D4B593200294651 /* UIImageViewExtension.swift */,
 				4F1344EB1D4B382400294651 /* Main.storyboard */,
 				4F1344EE1D4B382500294651 /* Assets.xcassets */,
 				4F1344F01D4B382500294651 /* LaunchScreen.storyboard */,
@@ -123,6 +135,14 @@
 				4F1345091D4B382500294651 /* Info.plist */,
 			);
 			path = FAMFullscreenTransitionDemoUITests;
+			sourceTree = "<group>";
+		};
+		4F1345151D4B382900294651 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4F13451A1D4B3AD500294651 /* PreviewTransition.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,8 +276,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F1345171D4B38AC00294651 /* ViewControllerCell.swift in Sources */,
 				4F1344EA1D4B382400294651 /* ViewController.swift in Sources */,
+				4F13451F1D4B593200294651 /* UIImageViewExtension.swift in Sources */,
 				4F1344E81D4B382400294651 /* AppDelegate.swift in Sources */,
+				4F13451D1D4B475400294651 /* PreviewController.swift in Sources */,
+				4F13451B1D4B3AD500294651 /* PreviewTransition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
