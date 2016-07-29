@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4F1344E81D4B382400294651 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1344E71D4B382400294651 /* AppDelegate.swift */; };
+		4F1344EA1D4B382400294651 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1344E91D4B382400294651 /* ViewController.swift */; };
+		4F1344ED1D4B382400294651 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F1344EB1D4B382400294651 /* Main.storyboard */; };
+		4F1344EF1D4B382500294651 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F1344EE1D4B382500294651 /* Assets.xcassets */; };
+		4F1344F21D4B382500294651 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F1344F01D4B382500294651 /* LaunchScreen.storyboard */; };
+		4F1344FD1D4B382500294651 /* FAMFullscreenTransitionDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1344FC1D4B382500294651 /* FAMFullscreenTransitionDemoTests.swift */; };
+		4F1345081D4B382500294651 /* FAMFullscreenTransitionDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1345071D4B382500294651 /* FAMFullscreenTransitionDemoUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4F1344F91D4B382500294651 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4F1344DC1D4B382400294651 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F1344E31D4B382400294651;
+			remoteInfo = FAMFullscreenTransitionDemo;
+		};
+		4F1345041D4B382500294651 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4F1344DC1D4B382400294651 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F1344E31D4B382400294651;
+			remoteInfo = FAMFullscreenTransitionDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4F1344E41D4B382400294651 /* FAMFullscreenTransitionDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FAMFullscreenTransitionDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F1344E71D4B382400294651 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4F1344E91D4B382400294651 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4F1344EC1D4B382400294651 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4F1344EE1D4B382500294651 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4F1344F11D4B382500294651 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4F1344F31D4B382500294651 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4F1344F81D4B382500294651 /* FAMFullscreenTransitionDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FAMFullscreenTransitionDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F1344FC1D4B382500294651 /* FAMFullscreenTransitionDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAMFullscreenTransitionDemoTests.swift; sourceTree = "<group>"; };
+		4F1344FE1D4B382500294651 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4F1345031D4B382500294651 /* FAMFullscreenTransitionDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FAMFullscreenTransitionDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F1345071D4B382500294651 /* FAMFullscreenTransitionDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAMFullscreenTransitionDemoUITests.swift; sourceTree = "<group>"; };
+		4F1345091D4B382500294651 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4F1344E11D4B382400294651 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F1344F51D4B382500294651 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F1345001D4B382500294651 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4F1344DB1D4B382400294651 = {
+			isa = PBXGroup;
+			children = (
+				4F1344E61D4B382400294651 /* FAMFullscreenTransitionDemo */,
+				4F1344FB1D4B382500294651 /* FAMFullscreenTransitionDemoTests */,
+				4F1345061D4B382500294651 /* FAMFullscreenTransitionDemoUITests */,
+				4F1344E51D4B382400294651 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4F1344E51D4B382400294651 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4F1344E41D4B382400294651 /* FAMFullscreenTransitionDemo.app */,
+				4F1344F81D4B382500294651 /* FAMFullscreenTransitionDemoTests.xctest */,
+				4F1345031D4B382500294651 /* FAMFullscreenTransitionDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4F1344E61D4B382400294651 /* FAMFullscreenTransitionDemo */ = {
+			isa = PBXGroup;
+			children = (
+				4F1344E71D4B382400294651 /* AppDelegate.swift */,
+				4F1344E91D4B382400294651 /* ViewController.swift */,
+				4F1344EB1D4B382400294651 /* Main.storyboard */,
+				4F1344EE1D4B382500294651 /* Assets.xcassets */,
+				4F1344F01D4B382500294651 /* LaunchScreen.storyboard */,
+				4F1344F31D4B382500294651 /* Info.plist */,
+			);
+			path = FAMFullscreenTransitionDemo;
+			sourceTree = "<group>";
+		};
+		4F1344FB1D4B382500294651 /* FAMFullscreenTransitionDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				4F1344FC1D4B382500294651 /* FAMFullscreenTransitionDemoTests.swift */,
+				4F1344FE1D4B382500294651 /* Info.plist */,
+			);
+			path = FAMFullscreenTransitionDemoTests;
+			sourceTree = "<group>";
+		};
+		4F1345061D4B382500294651 /* FAMFullscreenTransitionDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4F1345071D4B382500294651 /* FAMFullscreenTransitionDemoUITests.swift */,
+				4F1345091D4B382500294651 /* Info.plist */,
+			);
+			path = FAMFullscreenTransitionDemoUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4F1344E31D4B382400294651 /* FAMFullscreenTransitionDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F13450C1D4B382500294651 /* Build configuration list for PBXNativeTarget "FAMFullscreenTransitionDemo" */;
+			buildPhases = (
+				4F1344E01D4B382400294651 /* Sources */,
+				4F1344E11D4B382400294651 /* Frameworks */,
+				4F1344E21D4B382400294651 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FAMFullscreenTransitionDemo;
+			productName = FAMFullscreenTransitionDemo;
+			productReference = 4F1344E41D4B382400294651 /* FAMFullscreenTransitionDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4F1344F71D4B382500294651 /* FAMFullscreenTransitionDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F13450F1D4B382500294651 /* Build configuration list for PBXNativeTarget "FAMFullscreenTransitionDemoTests" */;
+			buildPhases = (
+				4F1344F41D4B382500294651 /* Sources */,
+				4F1344F51D4B382500294651 /* Frameworks */,
+				4F1344F61D4B382500294651 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4F1344FA1D4B382500294651 /* PBXTargetDependency */,
+			);
+			name = FAMFullscreenTransitionDemoTests;
+			productName = FAMFullscreenTransitionDemoTests;
+			productReference = 4F1344F81D4B382500294651 /* FAMFullscreenTransitionDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4F1345021D4B382500294651 /* FAMFullscreenTransitionDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F1345121D4B382500294651 /* Build configuration list for PBXNativeTarget "FAMFullscreenTransitionDemoUITests" */;
+			buildPhases = (
+				4F1344FF1D4B382500294651 /* Sources */,
+				4F1345001D4B382500294651 /* Frameworks */,
+				4F1345011D4B382500294651 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4F1345051D4B382500294651 /* PBXTargetDependency */,
+			);
+			name = FAMFullscreenTransitionDemoUITests;
+			productName = FAMFullscreenTransitionDemoUITests;
+			productReference = 4F1345031D4B382500294651 /* FAMFullscreenTransitionDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4F1344DC1D4B382400294651 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Timers-Inc";
+				TargetAttributes = {
+					4F1344E31D4B382400294651 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					4F1344F71D4B382500294651 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 4F1344E31D4B382400294651;
+					};
+					4F1345021D4B382500294651 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 4F1344E31D4B382400294651;
+					};
+				};
+			};
+			buildConfigurationList = 4F1344DF1D4B382400294651 /* Build configuration list for PBXProject "FAMFullscreenTransitionDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4F1344DB1D4B382400294651;
+			productRefGroup = 4F1344E51D4B382400294651 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4F1344E31D4B382400294651 /* FAMFullscreenTransitionDemo */,
+				4F1344F71D4B382500294651 /* FAMFullscreenTransitionDemoTests */,
+				4F1345021D4B382500294651 /* FAMFullscreenTransitionDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4F1344E21D4B382400294651 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F1344F21D4B382500294651 /* LaunchScreen.storyboard in Resources */,
+				4F1344EF1D4B382500294651 /* Assets.xcassets in Resources */,
+				4F1344ED1D4B382400294651 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F1344F61D4B382500294651 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F1345011D4B382500294651 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4F1344E01D4B382400294651 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F1344EA1D4B382400294651 /* ViewController.swift in Sources */,
+				4F1344E81D4B382400294651 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F1344F41D4B382500294651 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F1344FD1D4B382500294651 /* FAMFullscreenTransitionDemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F1344FF1D4B382500294651 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F1345081D4B382500294651 /* FAMFullscreenTransitionDemoUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4F1344FA1D4B382500294651 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4F1344E31D4B382400294651 /* FAMFullscreenTransitionDemo */;
+			targetProxy = 4F1344F91D4B382500294651 /* PBXContainerItemProxy */;
+		};
+		4F1345051D4B382500294651 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4F1344E31D4B382400294651 /* FAMFullscreenTransitionDemo */;
+			targetProxy = 4F1345041D4B382500294651 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4F1344EB1D4B382400294651 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F1344EC1D4B382400294651 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4F1344F01D4B382500294651 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F1344F11D4B382500294651 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4F13450A1D4B382500294651 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4F13450B1D4B382500294651 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4F13450D1D4B382500294651 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = FAMFullscreenTransitionDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.timers-inc.FAMFullscreenTransitionDemo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4F13450E1D4B382500294651 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = FAMFullscreenTransitionDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.timers-inc.FAMFullscreenTransitionDemo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		4F1345101D4B382500294651 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = FAMFullscreenTransitionDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.timers-inc.FAMFullscreenTransitionDemoTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FAMFullscreenTransitionDemo.app/FAMFullscreenTransitionDemo";
+			};
+			name = Debug;
+		};
+		4F1345111D4B382500294651 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = FAMFullscreenTransitionDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.timers-inc.FAMFullscreenTransitionDemoTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FAMFullscreenTransitionDemo.app/FAMFullscreenTransitionDemo";
+			};
+			name = Release;
+		};
+		4F1345131D4B382500294651 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = FAMFullscreenTransitionDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.timers-inc.FAMFullscreenTransitionDemoUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = FAMFullscreenTransitionDemo;
+			};
+			name = Debug;
+		};
+		4F1345141D4B382500294651 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = FAMFullscreenTransitionDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.timers-inc.FAMFullscreenTransitionDemoUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = FAMFullscreenTransitionDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4F1344DF1D4B382400294651 /* Build configuration list for PBXProject "FAMFullscreenTransitionDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F13450A1D4B382500294651 /* Debug */,
+				4F13450B1D4B382500294651 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4F13450C1D4B382500294651 /* Build configuration list for PBXNativeTarget "FAMFullscreenTransitionDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F13450D1D4B382500294651 /* Debug */,
+				4F13450E1D4B382500294651 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4F13450F1D4B382500294651 /* Build configuration list for PBXNativeTarget "FAMFullscreenTransitionDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F1345101D4B382500294651 /* Debug */,
+				4F1345111D4B382500294651 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4F1345121D4B382500294651 /* Build configuration list for PBXNativeTarget "FAMFullscreenTransitionDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F1345131D4B382500294651 /* Debug */,
+				4F1345141D4B382500294651 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4F1344DC1D4B382400294651 /* Project object */;
+}
