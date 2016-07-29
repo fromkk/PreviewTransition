@@ -8,11 +8,6 @@
 
 import UIKit
 
-@objc public enum PreviewDirection: Int {
-    case Open
-    case Close
-}
-
 public enum PreviewTransitionType {
     case Linear
     case Spring(delay: NSTimeInterval, damping: CGFloat, velocity: CGFloat, options: UIViewAnimationOptions)
@@ -36,11 +31,15 @@ public protocol Previewable {
     var toRect: CGRect { get set }
     var openDuration: NSTimeInterval { get set }
     var closeDuration: NSTimeInterval { get set }
-    var direction: PreviewDirection { get set }
     var transition: PreviewTransitionType { get set }
 }
 
 public class PreviewPresentor: NSObject, Previewable {
+    enum PreviewDirection: Int {
+        case Open
+        case Close
+    }
+
     public var imageView: UIImageView = {
         let imageView: UIImageView = UIImageView()
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -52,8 +51,20 @@ public class PreviewPresentor: NSObject, Previewable {
     public var toRect: CGRect = CGRect.zero
     public var openDuration: NSTimeInterval = 0.33
     public var closeDuration: NSTimeInterval = 0.5
-    public var direction: PreviewDirection = PreviewDirection.Open
     public var transition: PreviewTransitionType = PreviewTransitionType.Spring(delay: 0.0, damping: 0.75, velocity: 0.0, options: UIViewAnimationOptions.CurveEaseInOut)
+    var direction: PreviewDirection = PreviewDirection.Open
+    private weak var transitionContext: UIViewControllerContextTransitioning?
+    private weak var panGesture: UIPanGestureRecognizer?
+    private var panGestureStartPoint: CGPoint?
+    private weak var visibleViewController: UIViewController?
+
+    private var isInteractive: Bool = false
+    private lazy var interactionTransition: UIPercentDrivenInteractiveTransition = {
+        UIPercentDrivenInteractiveTransition()
+    }()
+
+    private var finishClosure: () -> Void = {}
+    private var cancelClosure: () -> Void = {}
 }
 
 extension PreviewPresentor: UIViewControllerAnimatedTransitioning {
@@ -66,6 +77,7 @@ extension PreviewPresentor: UIViewControllerAnimatedTransitioning {
     }
 
     public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+        self.transitionContext = transitionContext
         guard let fromViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey),
             toViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey),
             containerView: UIView = transitionContext.containerView() else {
@@ -106,19 +118,66 @@ extension PreviewPresentor: UIViewControllerAnimatedTransitioning {
                     transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
                 })
             } else {
-//                self.finishClosure = { [weak self] in
-//                    fromView.alpha = 1.0
-//                    self?.imageView.removeFromSuperview()
-//                    self?.imageView.transform = CGAffineTransformIdentity
-//                    transitionContext.completeTransition(true)
-//                }
-//
-//                self.cancelClosure = { [weak self] in
-//                    fromView.alpha = 1.0
-//                    self?.imageView.removeFromSuperview()
-//                    self?.imageView.transform = CGAffineTransformIdentity
-//                    transitionContext.completeTransition(false)
-//                }
+                self.finishClosure = { [unowned self] in
+                    fromView.alpha = 1.0
+                    self.imageView.removeFromSuperview()
+                    transitionContext.completeTransition(true)
+                }
+                self.cancelClosure = { [unowned self] in
+                    fromView.alpha = 1.0
+                    self.imageView.removeFromSuperview()
+                    transitionContext.completeTransition(false)
+                }
+            }
+        }
+    }
+
+    public func animationEnded(transitionCompleted: Bool) {
+        if self.direction == PreviewDirection.Open {
+            self.visibleViewController = self.transitionContext?.viewControllerForKey(UITransitionContextToViewControllerKey)
+            guard let toView: UIView = self.transitionContext?.viewForKey(UITransitionContextToViewKey) else {
+                return
+            }
+
+            toView.userInteractionEnabled = true
+            let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.panGestureHandler(_:)))
+            toView.addGestureRecognizer(panGesture)
+            self.panGesture = panGesture
+        } else {
+            guard let fromView: UIView = self.transitionContext?.viewForKey(UITransitionContextFromViewKey), panGesture = self.panGesture else {
+                return
+            }
+
+            fromView.removeGestureRecognizer(panGesture)
+        }
+    }
+}
+
+extension PreviewPresentor {
+    private enum Constatns {
+        static let closeRate: CGFloat = 0.3
+    }
+    func panGestureHandler(panGesture: UIPanGestureRecognizer) {
+        if panGesture == self.panGesture {
+            let translation: CGPoint = panGesture.translationInView(panGesture.view)
+            let height: CGFloat = (panGesture.view?.frame.size.height ?? UIScreen.mainScreen().bounds.size.height) / 1.5
+            let percent: CGFloat = fabs(translation.y / height)
+            switch panGesture.state {
+            case UIGestureRecognizerState.Began:
+                self.panGestureStartPoint = panGesture.locationInView(panGesture.view)
+                self.isInteractive = true
+                self.visibleViewController?.dismissViewControllerAnimated(true, completion: nil)
+            case UIGestureRecognizerState.Changed:
+                self.updateInteractiveTransition(percent)
+                self.imageView.transform = CGAffineTransformMakeTranslation(translation.x, translation.y)
+            default:
+                if Constatns.closeRate <= percent {
+                    self.finishInteractiveTransition()
+                } else {
+                    self.cancelInteractiveTransition()
+                }
+                self.isInteractive = false
+                break
             }
         }
     }
@@ -133,5 +192,56 @@ extension PreviewPresentor: UIViewControllerTransitioningDelegate {
     public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.direction = PreviewDirection.Close
         return self
+    }
+
+    public func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
+    }
+
+    public func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if self.isInteractive {
+            return self.interactionTransition
+        }
+        return nil
+    }
+}
+
+protocol PreviewInteractiveTransition {
+    func updateInteractiveTransition(percentComplete: CGFloat) -> Void
+    func finishInteractiveTransition() -> Void
+    func cancelInteractiveTransition() -> Void
+}
+
+extension PreviewPresentor: PreviewInteractiveTransition {
+    func updateInteractiveTransition(percentComplete: CGFloat) {
+        self.interactionTransition.updateInteractiveTransition(percentComplete)
+    }
+
+    func finishInteractiveTransition() {
+        self.interactionTransition.finishInteractiveTransition()
+
+        guard let transitionContext = self.transitionContext else {
+            return
+        }
+
+        self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
+            self.imageView.frame = self.fromRect
+        }) { (finished) in
+            self.finishClosure()
+        }
+    }
+
+    func cancelInteractiveTransition() {
+        self.interactionTransition.cancelInteractiveTransition()
+
+        guard let transitionContext = self.transitionContext else {
+            return
+        }
+
+        self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
+            self.imageView.frame = self.toRect
+        }) { (finished) in
+            self.cancelClosure()
+        }
     }
 }
