@@ -143,24 +143,26 @@ extension PreviewPresentor: UIViewControllerAnimatedTransitioning {
             let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.panGestureHandler(_:)))
             toView.addGestureRecognizer(panGesture)
             self.panGesture = panGesture
-        } else {
+        } else if transitionCompleted {
             guard let fromView: UIView = self.transitionContext?.viewForKey(UITransitionContextFromViewKey), panGesture = self.panGesture else {
                 return
             }
-
+            
             fromView.removeGestureRecognizer(panGesture)
+        } else {
+            self.imageView.transform = CGAffineTransformIdentity
         }
     }
 }
 
 extension PreviewPresentor {
     private enum Constatns {
-        static let closeRate: CGFloat = 0.3
+        static let closeRate: CGFloat = 0.5
     }
     func panGestureHandler(panGesture: UIPanGestureRecognizer) {
         if panGesture == self.panGesture {
             let translation: CGPoint = panGesture.translationInView(panGesture.view)
-            let height: CGFloat = (panGesture.view?.frame.size.height ?? UIScreen.mainScreen().bounds.size.height) / 1.5
+            let height: CGFloat = (panGesture.view?.frame.size.height ?? UIScreen.mainScreen().bounds.size.height) * 0.5
             let percent: CGFloat = fabs(translation.y / height)
             switch panGesture.state {
             case UIGestureRecognizerState.Began:
