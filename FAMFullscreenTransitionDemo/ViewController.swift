@@ -117,7 +117,7 @@ class ViewController: UIViewController {
     }
 
     private var selectedIndexPath: NSIndexPath?
-    private var previewTransition: PreviewPresentor?
+    private var previewTransition: PreviewTransition?
 }
 
 extension ViewController: UICollectionViewDataSource {
@@ -181,7 +181,7 @@ extension ViewController: UICollectionViewDelegate {
 
         let toSize: CGSize = cell.imageView.image?.sizeForAspectFit(UIScreen.mainScreen().bounds.size) ?? CGSize.zero
 
-        self.previewTransition = PreviewPresentor()
+        self.previewTransition = PreviewTransition()
         self.previewTransition?.fromRect = fromRect
         self.previewTransition?.toRect = CGRect(origin: CGPoint(x: (UIScreen.mainScreen().bounds.size.width - toSize.width) / 2.0, y: (UIScreen.mainScreen().bounds.size.height - toSize.height) / 2.0), size: toSize)
         self.previewTransition?.imageView.image = cell.imageView.image

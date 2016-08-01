@@ -34,7 +34,7 @@ public protocol Previewable {
     var transition: PreviewTransitionType { get set }
 }
 
-public class PreviewPresentor: NSObject, Previewable {
+public class PreviewTransition: NSObject, Previewable {
     enum PreviewDirection: Int {
         case Open
         case Close
@@ -67,7 +67,7 @@ public class PreviewPresentor: NSObject, Previewable {
     private var cancelClosure: () -> Void = {}
 }
 
-extension PreviewPresentor: UIViewControllerAnimatedTransitioning {
+extension PreviewTransition: UIViewControllerAnimatedTransitioning {
     public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         if self.direction == PreviewDirection.Open {
             return self.openDuration
@@ -147,7 +147,7 @@ extension PreviewPresentor: UIViewControllerAnimatedTransitioning {
             guard let fromView: UIView = self.transitionContext?.viewForKey(UITransitionContextFromViewKey), panGesture = self.panGesture else {
                 return
             }
-            
+
             fromView.removeGestureRecognizer(panGesture)
         } else {
             self.imageView.transform = CGAffineTransformIdentity
@@ -155,7 +155,7 @@ extension PreviewPresentor: UIViewControllerAnimatedTransitioning {
     }
 }
 
-extension PreviewPresentor {
+extension PreviewTransition {
     private enum Constatns {
         static let closeRate: CGFloat = 0.5
     }
@@ -185,7 +185,7 @@ extension PreviewPresentor {
     }
 }
 
-extension PreviewPresentor: UIViewControllerTransitioningDelegate {
+extension PreviewTransition: UIViewControllerTransitioningDelegate {
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.direction = PreviewDirection.Open
         return self
@@ -214,7 +214,7 @@ protocol PreviewInteractiveTransition {
     func cancelInteractiveTransition() -> Void
 }
 
-extension PreviewPresentor: PreviewInteractiveTransition {
+extension PreviewTransition: PreviewInteractiveTransition {
     func updateInteractiveTransition(percentComplete: CGFloat) {
         self.interactionTransition.updateInteractiveTransition(percentComplete)
     }
