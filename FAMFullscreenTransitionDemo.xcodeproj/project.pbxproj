@@ -15,7 +15,6 @@
 		4F1344FD1D4B382500294651 /* FAMFullscreenTransitionDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1344FC1D4B382500294651 /* FAMFullscreenTransitionDemoTests.swift */; };
 		4F1345081D4B382500294651 /* FAMFullscreenTransitionDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1345071D4B382500294651 /* FAMFullscreenTransitionDemoUITests.swift */; };
 		4F1345171D4B38AC00294651 /* ViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1345161D4B38AC00294651 /* ViewControllerCell.swift */; };
-		4F13451B1D4B3AD500294651 /* PreviewTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F13451A1D4B3AD500294651 /* PreviewTransition.swift */; };
 		4F13451D1D4B475400294651 /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F13451C1D4B475400294651 /* PreviewController.swift */; };
 		4F13451F1D4B593200294651 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F13451E1D4B593200294651 /* UIImageViewExtension.swift */; };
 		4F43E0BF1D4EDD3C002B2A52 /* PreviewTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F43E0BE1D4EDD3C002B2A52 /* PreviewTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -439,7 +438,6 @@
 				4F13451F1D4B593200294651 /* UIImageViewExtension.swift in Sources */,
 				4F1344E81D4B382400294651 /* AppDelegate.swift in Sources */,
 				4F13451D1D4B475400294651 /* PreviewController.swift in Sources */,
-				4F13451B1D4B3AD500294651 /* PreviewTransition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,6 +784,7 @@
 				4F43E0D41D4EDD3D002B2A52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4F43E0D91D4EDD3D002B2A52 /* Build configuration list for PBXNativeTarget "PreviewTransitionTests" */ = {
 			isa = XCConfigurationList;
@@ -794,6 +793,7 @@
 				4F43E0D61D4EDD3D002B2A52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

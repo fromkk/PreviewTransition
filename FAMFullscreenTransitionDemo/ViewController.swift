@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 import PhotosUI
+import PreviewTransition
 
 enum PhotoLibraryRequestResult: Int {
     case Success
