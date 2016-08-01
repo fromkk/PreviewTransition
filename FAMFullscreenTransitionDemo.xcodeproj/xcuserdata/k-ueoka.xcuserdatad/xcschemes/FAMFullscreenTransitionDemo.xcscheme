@@ -48,6 +48,16 @@
                ReferencedContainer = "container:FAMFullscreenTransitionDemo.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4F43E0C41D4EDD3C002B2A52"
+               BuildableName = "PreviewTransitionTests.xctest"
+               BlueprintName = "PreviewTransitionTests"
+               ReferencedContainer = "container:FAMFullscreenTransitionDemo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
