@@ -34,6 +34,24 @@ public protocol Previewable {
     var transition: PreviewTransitionType { get set }
 }
 
+public protocol PreviewTransitionDelegate {
+    func previewTransitionWillShow(previewTransition: Previewable) -> Void
+    func previewTransitionDidShow(previewTransition: Previewable) -> Void
+    func previewTransitionWillHide(previewTransition: Previewable) -> Void
+    func previewTransitionDidHide(previewTransition: Previewable) -> Void
+    func previewTransitionWillCancel(previewTransition: Previewable) -> Void
+    func previewTransitionDidCancel(previewTransition: Previewable) -> Void
+}
+
+extension PreviewTransitionDelegate {
+    func previewTransitionWillShow(previewTransition: Previewable) {}
+    func previewTransitionDidShow(previewTransition: Previewable) {}
+    func previewTransitionWillHide(previewTransition: Previewable) {}
+    func previewTransitionDidHide(previewTransition: Previewable) {}
+    func previewTransitionWillCancel(previewTransition: Previewable) {}
+    func previewTransitionDidCancel(previewTransition: Previewable) {}
+}
+
 public class PreviewTransition: NSObject, Previewable {
     enum PreviewDirection: Int {
         case Open
@@ -52,6 +70,7 @@ public class PreviewTransition: NSObject, Previewable {
     public var openDuration: NSTimeInterval = 0.33
     public var closeDuration: NSTimeInterval = 0.5
     public var transition: PreviewTransitionType = PreviewTransitionType.Spring(delay: 0.0, damping: 0.75, velocity: 0.0, options: UIViewAnimationOptions.CurveEaseInOut)
+    public var delegate: PreviewTransitionDelegate?
     var direction: PreviewDirection = PreviewDirection.Open
     private weak var transitionContext: UIViewControllerContextTransitioning?
     private weak var panGesture: UIPanGestureRecognizer?
@@ -88,6 +107,8 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
         let fromView: UIView = fromViewController.view
 
         if self.direction == PreviewDirection.Open {
+            self.delegate?.previewTransitionWillShow(self)
+
             containerView.insertSubview(toView, aboveSubview: fromView)
             toView.alpha = 0.0
             containerView.addSubview(self.imageView)
@@ -96,10 +117,11 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
 
             self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
                 self.imageView.frame = self.toRect
-            }, completion: { (finished) in
+            }, completion: { [unowned self] (finished) in
                 toView.alpha = 1.0
                 self.imageView.removeFromSuperview()
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                self.delegate?.previewTransitionDidShow(self)
             })
         } else {
             containerView.insertSubview(toView, belowSubview: fromView)
@@ -110,12 +132,14 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
             toView.alpha = 1.0
             fromView.alpha = 0.0
             if !transitionContext.isInteractive() {
+                self.delegate?.previewTransitionWillHide(self)
                 self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
                     self.imageView.frame = self.fromRect
                 }, completion: { [unowned self] (finished: Bool) in
                     fromView.alpha = 1.0
                     self.imageView.removeFromSuperview()
                     transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                    self.delegate?.previewTransitionDidHide(self)
                 })
             } else {
                 self.finishClosure = { [unowned self] in
@@ -226,10 +250,12 @@ extension PreviewTransition: PreviewInteractiveTransition {
             return
         }
 
+        self.delegate?.previewTransitionWillHide(self)
         self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
             self.imageView.frame = self.fromRect
-        }) { (finished) in
+        }) { [unowned self] (finished) in
             self.finishClosure()
+            self.delegate?.previewTransitionDidHide(self)
         }
     }
 
@@ -240,10 +266,12 @@ extension PreviewTransition: PreviewInteractiveTransition {
             return
         }
 
+        self.delegate?.previewTransitionWillCancel(self)
         self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
             self.imageView.frame = self.toRect
-        }) { (finished) in
+        }) { [unowned self] (finished) in
             self.cancelClosure()
+            self.delegate?.previewTransitionDidCancel(self)
         }
     }
 }

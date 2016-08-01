@@ -185,9 +185,36 @@ extension ViewController: UICollectionViewDelegate {
         self.previewTransition?.fromRect = fromRect
         self.previewTransition?.toRect = CGRect(origin: CGPoint(x: (UIScreen.mainScreen().bounds.size.width - toSize.width) / 2.0, y: (UIScreen.mainScreen().bounds.size.height - toSize.height) / 2.0), size: toSize)
         self.previewTransition?.imageView.image = cell.imageView.image
+        self.previewTransition?.delegate = self
 
         let navigationController: UINavigationController = UINavigationController(rootViewController: previewController)
         navigationController.transitioningDelegate = self.previewTransition
         self.presentViewController(navigationController, animated: true, completion: nil)
+    }
+}
+
+extension ViewController: PreviewTransitionDelegate {
+    func previewTransitionWillShow(previewTransition: Previewable) {
+        print(#function)
+    }
+
+    func previewTransitionDidShow(previewTransition: Previewable) {
+        print(#function)
+    }
+
+    func previewTransitionWillHide(previewTransition: Previewable) {
+        print(#function)
+    }
+
+    func previewTransitionDidHide(previewTransition: Previewable) {
+        print(#function)
+    }
+
+    func previewTransitionWillCancel(previewTransition: Previewable) {
+        print(#function)
+    }
+
+    func previewTransitionDidCancel(previewTransition: Previewable) {
+        print(#function)
     }
 }
