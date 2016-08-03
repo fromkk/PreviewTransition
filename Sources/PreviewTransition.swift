@@ -129,7 +129,7 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
         self.transitionContext = transitionContext
 
         guard let containerView: UIView = transitionContext.containerView() else {
-            transitionContext.cancelInteractiveTransition()
+            transitionContext.completeTransition(false)
             return
         }
 
@@ -138,7 +138,7 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
                 toViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey),
                 presenterViewController: PreviewTransitionPresenter = transitionContext.presenterViewController(forKey: UITransitionContextFromViewControllerKey),
                 presentedViewController: PreviewTransitionPresented = transitionContext.presentedViewController(forKey: UITransitionContextToViewControllerKey) else {
-                transitionContext.cancelInteractiveTransition()
+                transitionContext.completeTransition(false)
                 return
             }
 
@@ -167,14 +167,13 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
                 toViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey),
             presenterViewController: PreviewTransitionPresenter = transitionContext.presenterViewController(forKey: UITransitionContextToViewControllerKey),
             presentedViewController: PreviewTransitionPresented = transitionContext.presentedViewController(forKey: UITransitionContextFromViewControllerKey) else {
-                transitionContext.cancelInteractiveTransition()
+                transitionContext.completeTransition(false)
                 return
             }
 
             let toView: UIView = toViewController.view
             let fromView: UIView = fromViewController.view
 
-            containerView.insertSubview(toView, belowSubview: fromView)
             containerView.addSubview(self.imageView)
 
             self.imageView.image = presentedViewController.previewTransitionImage(self)

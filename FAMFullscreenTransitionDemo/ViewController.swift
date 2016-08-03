@@ -174,13 +174,12 @@ extension ViewController: UICollectionViewDelegate {
             previewController.imageView.image = image
         }
 
-        previewController.modalPresentationStyle = UIModalPresentationStyle.Custom
-
         self.previewTransition = PreviewTransition()
         self.previewTransition?.delegate = self
 
         let navigationController: UINavigationController = UINavigationController(rootViewController: previewController)
         navigationController.transitioningDelegate = self.previewTransition
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.Custom
         self.presentViewController(navigationController, animated: true, completion: nil)
     }
 }
