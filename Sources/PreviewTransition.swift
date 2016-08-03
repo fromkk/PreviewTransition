@@ -167,6 +167,7 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
                 toViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey),
             presenterViewController: PreviewTransitionPresenter = transitionContext.presenterViewController(forKey: UITransitionContextToViewControllerKey),
             presentedViewController: PreviewTransitionPresented = transitionContext.presentedViewController(forKey: UITransitionContextFromViewControllerKey) else {
+                transitionContext.cancelInteractiveTransition()
                 return
             }
 
