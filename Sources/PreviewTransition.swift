@@ -29,6 +29,7 @@ public protocol Previewable {
     var openDuration: NSTimeInterval { get set }
     var closeDuration: NSTimeInterval { get set }
     var transition: PreviewTransitionType { get set }
+    var delegate: PreviewTransitionDelegate? { get set }
 }
 
 public protocol AnyViewController {
@@ -100,7 +101,7 @@ public class PreviewTransition: NSObject, Previewable {
     public var closeDuration: NSTimeInterval = 0.5
     public var transition: PreviewTransitionType = PreviewTransitionType.Spring(delay: 0.0, damping: 0.75, velocity: 0.0, options: UIViewAnimationOptions.CurveEaseInOut)
     public var delegate: PreviewTransitionDelegate?
-    var direction: PreviewDirection = PreviewDirection.Open
+    private var direction: PreviewDirection = PreviewDirection.Open
     private weak var transitionContext: UIViewControllerContextTransitioning?
     private weak var panGesture: UIPanGestureRecognizer?
     private var panGestureStartPoint: CGPoint?
