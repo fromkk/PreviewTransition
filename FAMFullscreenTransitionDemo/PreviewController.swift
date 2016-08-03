@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PreviewTransition
 
 class PreviewController: UIViewController {
     lazy var imageView: UIImageView = {
@@ -38,5 +39,16 @@ class PreviewController: UIViewController {
 
     func close() {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+extension PreviewController: PreviewTransitionPresented {
+    func previewTransitionImage(previewTransition: Previewable) -> UIImage? {
+        return self.imageView.image
+    }
+
+    func previewTransitionToRect(previewTransition: Previewable) -> CGRect {
+        let toSize: CGSize = self.imageView.image?.sizeForAspectFit(UIScreen.mainScreen().bounds.size) ?? CGSize.zero
+        return CGRect(origin: CGPoint(x: (UIScreen.mainScreen().bounds.size.width - toSize.width) / 2.0, y: (UIScreen.mainScreen().bounds.size.height - toSize.height) / 2.0), size: toSize)
     }
 }

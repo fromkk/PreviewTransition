@@ -163,13 +163,9 @@ extension ViewController: UICollectionViewDelegate {
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let cell: ViewControllerCell = self.collectionView.cellForItemAtIndexPath(indexPath) as? ViewControllerCell,
-        asset: PHAsset = self.fetchResult?.objectAtIndex(indexPath.row) as? PHAsset
-        else {
+        guard let asset: PHAsset = self.fetchResult?.objectAtIndex(indexPath.row) as? PHAsset else {
             return
         }
-
-        let fromRect: CGRect = self.collectionView.convertRect(cell.frame, toView: nil)
 
         self.selectedIndexPath = indexPath
 
@@ -180,12 +176,7 @@ extension ViewController: UICollectionViewDelegate {
 
         previewController.modalPresentationStyle = UIModalPresentationStyle.Custom
 
-        let toSize: CGSize = cell.imageView.image?.sizeForAspectFit(UIScreen.mainScreen().bounds.size) ?? CGSize.zero
-
         self.previewTransition = PreviewTransition()
-        self.previewTransition?.fromRect = fromRect
-        self.previewTransition?.toRect = CGRect(origin: CGPoint(x: (UIScreen.mainScreen().bounds.size.width - toSize.width) / 2.0, y: (UIScreen.mainScreen().bounds.size.height - toSize.height) / 2.0), size: toSize)
-        self.previewTransition?.imageView.image = cell.imageView.image
         self.previewTransition?.delegate = self
 
         let navigationController: UINavigationController = UINavigationController(rootViewController: previewController)
@@ -217,5 +208,31 @@ extension ViewController: PreviewTransitionDelegate {
 
     func previewTransitionDidCancel(previewTransition: Previewable) {
         print(#function)
+    }
+}
+
+extension ViewController: PreviewTransitionPresenter {
+    func previewTransitionFromRect(previewTransition: Previewable) -> CGRect {
+        guard let selectedIndexPath: NSIndexPath = self.selectedIndexPath else {
+            return CGRect.zero
+        }
+
+        guard let cell: ViewControllerCell = self.collectionView.cellForItemAtIndexPath(selectedIndexPath) as? ViewControllerCell else {
+            return CGRect.zero
+        }
+
+        return self.collectionView.convertRect(cell.frame, toView: nil)
+    }
+
+    func previewTransitionImage(previewTransition: Previewable) -> UIImage? {
+        guard let selectedIndexPath: NSIndexPath = self.selectedIndexPath else {
+            return nil
+        }
+
+        guard let cell: ViewControllerCell = self.collectionView.cellForItemAtIndexPath(selectedIndexPath) as? ViewControllerCell else {
+            return nil
+        }
+
+        return cell.imageView.image
     }
 }
