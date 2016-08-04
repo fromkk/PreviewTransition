@@ -260,12 +260,34 @@ extension PreviewTransition {
 }
 
 extension PreviewTransition: UIViewControllerTransitioningDelegate {
+    private func previewViewController<T>(fromViewController viewController: UIViewController?) -> T? {
+        if let navigationController: UINavigationController = viewController as? UINavigationController {
+            if let resultViewController: T = navigationController.topViewController as? T {
+                return resultViewController
+            }
+        } else if let resultViewController: T = viewController as? T {
+            return resultViewController
+        }
+        return nil
+    }
+
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+
+        guard let _: PreviewTransitionPresenter = self.previewViewController(fromViewController: presenting),
+            _: PreviewTransitionPresented = self.previewViewController(fromViewController: presented) else {
+            return nil
+        }
+
         self.direction = PreviewDirection.Open
         return self
     }
 
     public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard let _: PreviewTransitionPresented = self.previewViewController(fromViewController: dismissed),
+            _: PreviewTransitionPresenter = self.previewViewController(fromViewController: dismissed.presentingViewController) else {
+            return nil
+        }
+
         self.direction = PreviewDirection.Close
         return self
     }
