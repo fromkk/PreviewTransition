@@ -65,19 +65,10 @@ extension PreviewTransitionDelegate {
 }
 
 extension UIViewControllerContextTransitioning {
-    func presenterViewController(forKey key: String) -> PreviewTransitionPresenter? {
-        if let navigationController: UINavigationController = self.viewControllerForKey(key) as? UINavigationController, presenterViewController: PreviewTransitionPresenter = navigationController.topViewController as? PreviewTransitionPresenter {
+    func previewViewController<T>(forKey key: String) -> T? {
+        if let navigationController: UINavigationController = self.viewControllerForKey(key) as? UINavigationController, presenterViewController: T = navigationController.topViewController as? T {
             return presenterViewController
-        } else if let presenterViewController: PreviewTransitionPresenter = self.viewControllerForKey(key) as? PreviewTransitionPresenter {
-            return presenterViewController
-        }
-        return nil
-    }
-
-    func presentedViewController(forKey key: String) -> PreviewTransitionPresented? {
-        if let navigationController: UINavigationController = self.viewControllerForKey(key) as? UINavigationController, presenterViewController: PreviewTransitionPresented = navigationController.topViewController as? PreviewTransitionPresented {
-            return presenterViewController
-        } else if let presenterViewController: PreviewTransitionPresented = self.viewControllerForKey(key) as? PreviewTransitionPresented {
+        } else if let presenterViewController: T = self.viewControllerForKey(key) as? T {
             return presenterViewController
         }
         return nil
@@ -136,8 +127,8 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
         if self.direction == PreviewDirection.Open {
             guard let fromViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey),
                 toViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey),
-                presenterViewController: PreviewTransitionPresenter = transitionContext.presenterViewController(forKey: UITransitionContextFromViewControllerKey),
-                presentedViewController: PreviewTransitionPresented = transitionContext.presentedViewController(forKey: UITransitionContextToViewControllerKey) else {
+                presenterViewController: PreviewTransitionPresenter = transitionContext.previewViewController(forKey: UITransitionContextFromViewControllerKey),
+                presentedViewController: PreviewTransitionPresented = transitionContext.previewViewController(forKey: UITransitionContextToViewControllerKey) else {
                 transitionContext.completeTransition(false)
                 return
             }
@@ -165,8 +156,8 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
         } else {
             guard let fromViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey),
                 toViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey),
-            presenterViewController: PreviewTransitionPresenter = transitionContext.presenterViewController(forKey: UITransitionContextToViewControllerKey),
-            presentedViewController: PreviewTransitionPresented = transitionContext.presentedViewController(forKey: UITransitionContextFromViewControllerKey) else {
+            presenterViewController: PreviewTransitionPresenter = transitionContext.previewViewController(forKey: UITransitionContextToViewControllerKey),
+            presentedViewController: PreviewTransitionPresented = transitionContext.previewViewController(forKey: UITransitionContextFromViewControllerKey) else {
                 transitionContext.completeTransition(false)
                 return
             }
@@ -319,7 +310,7 @@ extension PreviewTransition: PreviewInteractiveTransition {
         self.interactionTransition.finishInteractiveTransition()
 
         guard let transitionContext = self.transitionContext,
-            presenterViewController: PreviewTransitionPresenter = transitionContext.presenterViewController(forKey: UITransitionContextToViewControllerKey) else {
+            presenterViewController: PreviewTransitionPresenter = transitionContext.previewViewController(forKey: UITransitionContextToViewControllerKey) else {
             return
         }
 
@@ -336,7 +327,7 @@ extension PreviewTransition: PreviewInteractiveTransition {
         self.interactionTransition.cancelInteractiveTransition()
 
         guard let transitionContext = self.transitionContext,
-            toViewController: PreviewTransitionPresented = transitionContext.presentedViewController(forKey: UITransitionContextFromViewControllerKey) else {
+            toViewController: PreviewTransitionPresented = transitionContext.previewViewController(forKey: UITransitionContextFromViewControllerKey) else {
             return
         }
 
