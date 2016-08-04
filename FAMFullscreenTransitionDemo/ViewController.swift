@@ -185,33 +185,33 @@ extension ViewController: UICollectionViewDelegate {
 }
 
 extension ViewController: PreviewTransitionDelegate {
-    func previewTransitionWillShow(previewTransition: Previewable) {
+    func previewTransitionWillShow(previewTransition: PreviewTransition) {
         print(#function)
     }
 
-    func previewTransitionDidShow(previewTransition: Previewable) {
+    func previewTransitionDidShow(previewTransition: PreviewTransition) {
         print(#function)
     }
 
-    func previewTransitionWillHide(previewTransition: Previewable) {
+    func previewTransitionWillHide(previewTransition: PreviewTransition) {
         print(#function)
     }
 
-    func previewTransitionDidHide(previewTransition: Previewable) {
+    func previewTransitionDidHide(previewTransition: PreviewTransition) {
         print(#function)
     }
 
-    func previewTransitionWillCancel(previewTransition: Previewable) {
+    func previewTransitionWillCancel(previewTransition: PreviewTransition) {
         print(#function)
     }
 
-    func previewTransitionDidCancel(previewTransition: Previewable) {
+    func previewTransitionDidCancel(previewTransition: PreviewTransition) {
         print(#function)
     }
 }
 
 extension ViewController: PreviewTransitionPresenter {
-    func previewTransitionFromRect(previewTransition: Previewable) -> CGRect {
+    func previewTransitionFromRect(previewTransition: PreviewTransition) -> CGRect {
         guard let selectedIndexPath: NSIndexPath = self.selectedIndexPath else {
             return CGRect.zero
         }
@@ -223,7 +223,7 @@ extension ViewController: PreviewTransitionPresenter {
         return self.collectionView.convertRect(cell.frame, toView: nil)
     }
 
-    func previewTransitionImage(previewTransition: Previewable) -> UIImage? {
+    func previewTransitionImage(previewTransition: PreviewTransition) -> UIImage? {
         guard let selectedIndexPath: NSIndexPath = self.selectedIndexPath else {
             return nil
         }

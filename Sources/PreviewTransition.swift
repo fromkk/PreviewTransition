@@ -37,31 +37,31 @@ public protocol AnyViewController {
 }
 
 public protocol PreviewTransitionPresenter: AnyViewController {
-    func previewTransitionFromRect(previewTransition: Previewable) -> CGRect
-    func previewTransitionImage(previewTransition: Previewable) -> UIImage?
+    func previewTransitionFromRect(previewTransition: PreviewTransition) -> CGRect
+    func previewTransitionImage(previewTransition: PreviewTransition) -> UIImage?
 }
 
 public protocol PreviewTransitionPresented: AnyViewController {
-    func previewTransitionToRect(previewTransition: Previewable) -> CGRect
-    func previewTransitionImage(previewTransition: Previewable) -> UIImage?
+    func previewTransitionToRect(previewTransition: PreviewTransition) -> CGRect
+    func previewTransitionImage(previewTransition: PreviewTransition) -> UIImage?
 }
 
 public protocol PreviewTransitionDelegate {
-    func previewTransitionWillShow(previewTransition: Previewable) -> Void
-    func previewTransitionDidShow(previewTransition: Previewable) -> Void
-    func previewTransitionWillHide(previewTransition: Previewable) -> Void
-    func previewTransitionDidHide(previewTransition: Previewable) -> Void
-    func previewTransitionWillCancel(previewTransition: Previewable) -> Void
-    func previewTransitionDidCancel(previewTransition: Previewable) -> Void
+    func previewTransitionWillShow(previewTransition: PreviewTransition) -> Void
+    func previewTransitionDidShow(previewTransition: PreviewTransition) -> Void
+    func previewTransitionWillHide(previewTransition: PreviewTransition) -> Void
+    func previewTransitionDidHide(previewTransition: PreviewTransition) -> Void
+    func previewTransitionWillCancel(previewTransition: PreviewTransition) -> Void
+    func previewTransitionDidCancel(previewTransition: PreviewTransition) -> Void
 }
 
 extension PreviewTransitionDelegate {
-    func previewTransitionWillShow(previewTransition: Previewable) {}
-    func previewTransitionDidShow(previewTransition: Previewable) {}
-    func previewTransitionWillHide(previewTransition: Previewable) {}
-    func previewTransitionDidHide(previewTransition: Previewable) {}
-    func previewTransitionWillCancel(previewTransition: Previewable) {}
-    func previewTransitionDidCancel(previewTransition: Previewable) {}
+    func previewTransitionWillShow(previewTransition: PreviewTransition) {}
+    func previewTransitionDidShow(previewTransition: PreviewTransition) {}
+    func previewTransitionWillHide(previewTransition: PreviewTransition) {}
+    func previewTransitionDidHide(previewTransition: PreviewTransition) {}
+    func previewTransitionWillCancel(previewTransition: PreviewTransition) {}
+    func previewTransitionDidCancel(previewTransition: PreviewTransition) {}
 }
 
 extension UIViewControllerContextTransitioning {

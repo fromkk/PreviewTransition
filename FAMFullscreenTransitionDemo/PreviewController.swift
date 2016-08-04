@@ -43,11 +43,11 @@ class PreviewController: UIViewController {
 }
 
 extension PreviewController: PreviewTransitionPresented {
-    func previewTransitionImage(previewTransition: Previewable) -> UIImage? {
+    func previewTransitionImage(previewTransition: PreviewTransition) -> UIImage? {
         return self.imageView.image
     }
 
-    func previewTransitionToRect(previewTransition: Previewable) -> CGRect {
+    func previewTransitionToRect(previewTransition: PreviewTransition) -> CGRect {
         let toSize: CGSize = self.imageView.image?.sizeForAspectFit(UIScreen.mainScreen().bounds.size) ?? CGSize.zero
         return CGRect(origin: CGPoint(x: (UIScreen.mainScreen().bounds.size.width - toSize.width) / 2.0, y: (UIScreen.mainScreen().bounds.size.height - toSize.height) / 2.0), size: toSize)
     }
