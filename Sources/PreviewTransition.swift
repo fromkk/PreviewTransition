@@ -32,21 +32,17 @@ public protocol Previewable {
     var delegate: PreviewTransitionDelegate? { get set }
 }
 
-public protocol AnyViewController {
-    var view: UIView! { get set }
-}
-
-public protocol PreviewTransitionPresenter: AnyViewController {
+@objc public protocol PreviewTransitionPresenter: class {
     func previewTransitionFromRect(previewTransition: PreviewTransition) -> CGRect
     func previewTransitionImage(previewTransition: PreviewTransition) -> UIImage?
 }
 
-public protocol PreviewTransitionPresented: AnyViewController {
+@objc public protocol PreviewTransitionPresented: class {
     func previewTransitionToRect(previewTransition: PreviewTransition) -> CGRect
     func previewTransitionImage(previewTransition: PreviewTransition) -> UIImage?
 }
 
-public protocol PreviewTransitionDelegate {
+@objc public protocol PreviewTransitionDelegate {
     func previewTransitionWillShow(previewTransition: PreviewTransition) -> Void
     func previewTransitionDidShow(previewTransition: PreviewTransition) -> Void
     func previewTransitionWillHide(previewTransition: PreviewTransition) -> Void
