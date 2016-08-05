@@ -51,6 +51,9 @@ public class PreviewTransition: NSObject, Previewable {
     enum PreviewDirection: Int {
         case Open
         case Close
+        var isOpen: Bool {
+            return self == .Open
+        }
     }
 
     public var image: UIImage? {
@@ -104,7 +107,7 @@ extension PreviewTransition {
 
 extension PreviewTransition: UIViewControllerAnimatedTransitioning {
     public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        if self.direction == PreviewDirection.Open {
+        if self.direction.isOpen {
             return self.openDuration
         } else {
             return self.closeDuration
@@ -119,7 +122,7 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
             return
         }
 
-        if self.direction == PreviewDirection.Open {
+        if self.direction.isOpen {
             guard let fromViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey),
                 toViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey),
                 presenterViewController: PreviewTransitionPresenter = transitionContext.previewViewController(forKey: UITransitionContextFromViewControllerKey),
@@ -189,7 +192,7 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
     }
 
     public func animationEnded(transitionCompleted: Bool) {
-        if self.direction == PreviewDirection.Open {
+        if self.direction.isOpen {
             self.visibleViewController = self.transitionContext?.viewControllerForKey(UITransitionContextToViewControllerKey)
             guard let toView: UIView = self.transitionContext?.viewForKey(UITransitionContextToViewKey) else {
                 return
