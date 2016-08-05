@@ -212,7 +212,7 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
 }
 
 extension PreviewTransition {
-    private enum Constatns {
+    private enum Constants {
         static let closeRate: CGFloat = 0.5
     }
     func panGestureHandler(panGesture: UIPanGestureRecognizer) {
@@ -229,7 +229,7 @@ extension PreviewTransition {
                 self.updateInteractiveTransition(percent)
                 self.imageView.transform = CGAffineTransformMakeTranslation(translation.x, translation.y)
             default:
-                if Constatns.closeRate <= percent {
+                if Constants.closeRate <= percent {
                     self.finishInteractiveTransition()
                 } else {
                     self.cancelInteractiveTransition()
