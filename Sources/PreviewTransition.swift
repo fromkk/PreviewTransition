@@ -140,8 +140,8 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
 
             self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
                 self.imageView.frame = presentedViewController.previewTransitionToRect(self)
+                toView.alpha = 1.0
                 }, completion: { [unowned self] (finished) in
-                    toView.alpha = 1.0
                     self.imageView.removeFromSuperview()
                     transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
                 })
@@ -162,24 +162,25 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
             self.imageView.image = presentedViewController.previewTransitionImage(self)
             self.imageView.frame = presentedViewController.previewTransitionToRect(self)
 
+            fromView.alpha = 1.0
+            self.transition.animation(self.transitionDuration(transitionContext), animations: {
+                fromView.alpha = 0.0
+            })
+
             toView.alpha = 1.0
-            fromView.alpha = 0.0
             if !transitionContext.isInteractive() {
                 self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
                     self.imageView.frame = presenterViewController.previewTransitionFromRect(self)
                     }, completion: { [unowned self] (finished: Bool) in
-                        fromView.alpha = 1.0
                         self.imageView.removeFromSuperview()
                         transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
                     })
             } else {
                 self.finishClosure = { [unowned self] in
-                    fromView.alpha = 1.0
                     self.imageView.removeFromSuperview()
                     transitionContext.completeTransition(true)
                 }
                 self.cancelClosure = { [unowned self] in
-                    fromView.alpha = 1.0
                     self.imageView.removeFromSuperview()
                     transitionContext.completeTransition(false)
                 }
