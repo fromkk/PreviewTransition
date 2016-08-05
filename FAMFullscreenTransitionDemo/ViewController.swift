@@ -175,38 +175,11 @@ extension ViewController: UICollectionViewDelegate {
         }
 
         self.previewTransition = PreviewTransition()
-        self.previewTransition?.delegate = self
 
         let navigationController: UINavigationController = UINavigationController(rootViewController: previewController)
         navigationController.transitioningDelegate = self.previewTransition
         navigationController.modalPresentationStyle = UIModalPresentationStyle.Custom
         self.presentViewController(navigationController, animated: true, completion: nil)
-    }
-}
-
-extension ViewController: PreviewTransitionDelegate {
-    func previewTransitionWillShow(previewTransition: PreviewTransition) {
-        print(#function)
-    }
-
-    func previewTransitionDidShow(previewTransition: PreviewTransition) {
-        print(#function)
-    }
-
-    func previewTransitionWillHide(previewTransition: PreviewTransition) {
-        print(#function)
-    }
-
-    func previewTransitionDidHide(previewTransition: PreviewTransition) {
-        print(#function)
-    }
-
-    func previewTransitionWillCancel(previewTransition: PreviewTransition) {
-        print(#function)
-    }
-
-    func previewTransitionDidCancel(previewTransition: PreviewTransition) {
-        print(#function)
     }
 }
 

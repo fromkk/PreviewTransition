@@ -29,7 +29,6 @@ public protocol Previewable {
     var openDuration: NSTimeInterval { get set }
     var closeDuration: NSTimeInterval { get set }
     var transition: PreviewTransitionType { get set }
-    var delegate: PreviewTransitionDelegate? { get set }
 }
 
 @objc public protocol PreviewTransitionPresenter: class {
@@ -42,32 +41,9 @@ public protocol Previewable {
     func previewTransitionImage(previewTransition: PreviewTransition) -> UIImage?
 }
 
-@objc public protocol PreviewTransitionDelegate {
-    func previewTransitionWillShow(previewTransition: PreviewTransition) -> Void
-    func previewTransitionDidShow(previewTransition: PreviewTransition) -> Void
-    func previewTransitionWillHide(previewTransition: PreviewTransition) -> Void
-    func previewTransitionDidHide(previewTransition: PreviewTransition) -> Void
-    func previewTransitionWillCancel(previewTransition: PreviewTransition) -> Void
-    func previewTransitionDidCancel(previewTransition: PreviewTransition) -> Void
-}
-
-extension PreviewTransitionDelegate {
-    func previewTransitionWillShow(previewTransition: PreviewTransition) {}
-    func previewTransitionDidShow(previewTransition: PreviewTransition) {}
-    func previewTransitionWillHide(previewTransition: PreviewTransition) {}
-    func previewTransitionDidHide(previewTransition: PreviewTransition) {}
-    func previewTransitionWillCancel(previewTransition: PreviewTransition) {}
-    func previewTransitionDidCancel(previewTransition: PreviewTransition) {}
-}
-
 extension UIViewControllerContextTransitioning {
     func previewViewController<T>(forKey key: String) -> T? {
-        if let navigationController: UINavigationController = self.viewControllerForKey(key) as? UINavigationController, presenterViewController: T = navigationController.topViewController as? T {
-            return presenterViewController
-        } else if let presenterViewController: T = self.viewControllerForKey(key) as? T {
-            return presenterViewController
-        }
-        return nil
+        return PreviewTransition.previewController(self.viewControllerForKey(key))
     }
 }
 
@@ -77,6 +53,9 @@ public class PreviewTransition: NSObject, Previewable {
         case Close
     }
 
+    public var image: UIImage? {
+        return self.imageView.image
+    }
     private lazy var imageView: UIImageView = {
         let imageView: UIImageView = UIImageView()
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -87,7 +66,6 @@ public class PreviewTransition: NSObject, Previewable {
     public var openDuration: NSTimeInterval = 0.33
     public var closeDuration: NSTimeInterval = 0.5
     public var transition: PreviewTransitionType = PreviewTransitionType.Spring(delay: 0.0, damping: 0.75, velocity: 0.0, options: UIViewAnimationOptions.CurveEaseInOut)
-    public var delegate: PreviewTransitionDelegate?
     private var direction: PreviewDirection = PreviewDirection.Open
     private weak var transitionContext: UIViewControllerContextTransitioning?
     private weak var panGesture: UIPanGestureRecognizer?
@@ -101,6 +79,27 @@ public class PreviewTransition: NSObject, Previewable {
 
     private var finishClosure: () -> Void = {}
     private var cancelClosure: () -> Void = {}
+}
+
+extension PreviewTransition {
+    static func previewController<T>(viewController: UIViewController?) -> T? {
+        if let resultViewController: T = viewController as? T {
+            return resultViewController
+        } else if let tabBarController: UITabBarController = viewController as? UITabBarController {
+            if let resultViewController: T = tabBarController.selectedViewController as? T {
+                return resultViewController
+            } else if let navigationController: UINavigationController = tabBarController.selectedViewController as? UINavigationController {
+                if let resultViewController: T = navigationController.topViewController as? T {
+                    return resultViewController
+                }
+            }
+        } else if let navigationController: UINavigationController = viewController as? UINavigationController {
+            if let resultViewController: T = navigationController.topViewController as? T {
+                return resultViewController
+            }
+        }
+        return nil
+    }
 }
 
 extension PreviewTransition: UIViewControllerAnimatedTransitioning {
@@ -125,14 +124,12 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
                 toViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey),
                 presenterViewController: PreviewTransitionPresenter = transitionContext.previewViewController(forKey: UITransitionContextFromViewControllerKey),
                 presentedViewController: PreviewTransitionPresented = transitionContext.previewViewController(forKey: UITransitionContextToViewControllerKey) else {
-                transitionContext.completeTransition(false)
-                return
+                    transitionContext.completeTransition(false)
+                    return
             }
 
             let toView: UIView = toViewController.view
             let fromView: UIView = fromViewController.view
-
-            self.delegate?.previewTransitionWillShow(self)
 
             containerView.insertSubview(toView, aboveSubview: fromView)
             toView.alpha = 0.0
@@ -143,19 +140,18 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
 
             self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
                 self.imageView.frame = presentedViewController.previewTransitionToRect(self)
-            }, completion: { [unowned self] (finished) in
-                toView.alpha = 1.0
-                self.imageView.removeFromSuperview()
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
-                self.delegate?.previewTransitionDidShow(self)
-            })
+                }, completion: { [unowned self] (finished) in
+                    toView.alpha = 1.0
+                    self.imageView.removeFromSuperview()
+                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                })
         } else {
             guard let fromViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey),
                 toViewController: UIViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey),
-            presenterViewController: PreviewTransitionPresenter = transitionContext.previewViewController(forKey: UITransitionContextToViewControllerKey),
-            presentedViewController: PreviewTransitionPresented = transitionContext.previewViewController(forKey: UITransitionContextFromViewControllerKey) else {
-                transitionContext.completeTransition(false)
-                return
+                presenterViewController: PreviewTransitionPresenter = transitionContext.previewViewController(forKey: UITransitionContextToViewControllerKey),
+                presentedViewController: PreviewTransitionPresented = transitionContext.previewViewController(forKey: UITransitionContextFromViewControllerKey) else {
+                    transitionContext.completeTransition(false)
+                    return
             }
 
             let toView: UIView = toViewController.view
@@ -169,15 +165,13 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
             toView.alpha = 1.0
             fromView.alpha = 0.0
             if !transitionContext.isInteractive() {
-                self.delegate?.previewTransitionWillHide(self)
                 self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
                     self.imageView.frame = presenterViewController.previewTransitionFromRect(self)
-                }, completion: { [unowned self] (finished: Bool) in
-                    fromView.alpha = 1.0
-                    self.imageView.removeFromSuperview()
-                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
-                    self.delegate?.previewTransitionDidHide(self)
-                })
+                    }, completion: { [unowned self] (finished: Bool) in
+                        fromView.alpha = 1.0
+                        self.imageView.removeFromSuperview()
+                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                    })
             } else {
                 self.finishClosure = { [unowned self] in
                     fromView.alpha = 1.0
@@ -247,22 +241,11 @@ extension PreviewTransition {
 }
 
 extension PreviewTransition: UIViewControllerTransitioningDelegate {
-    private func previewViewController<T>(fromViewController viewController: UIViewController?) -> T? {
-        if let navigationController: UINavigationController = viewController as? UINavigationController {
-            if let resultViewController: T = navigationController.topViewController as? T {
-                return resultViewController
-            }
-        } else if let resultViewController: T = viewController as? T {
-            return resultViewController
-        }
-        return nil
-    }
-
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 
-        guard let _: PreviewTransitionPresenter = self.previewViewController(fromViewController: presenting),
-            _: PreviewTransitionPresented = self.previewViewController(fromViewController: presented) else {
-            return nil
+        guard let _: PreviewTransitionPresenter = self.dynamicType.previewController(presenting),
+            _: PreviewTransitionPresented = self.dynamicType.previewController(presented) else {
+                return nil
         }
 
         self.direction = PreviewDirection.Open
@@ -270,9 +253,9 @@ extension PreviewTransition: UIViewControllerTransitioningDelegate {
     }
 
     public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard let _: PreviewTransitionPresented = self.previewViewController(fromViewController: dismissed),
-            _: PreviewTransitionPresenter = self.previewViewController(fromViewController: dismissed.presentingViewController) else {
-            return nil
+        guard let _: PreviewTransitionPresented = self.dynamicType.previewController(dismissed),
+            _: PreviewTransitionPresenter = self.dynamicType.previewController(dismissed.presentingViewController) else {
+                return nil
         }
 
         self.direction = PreviewDirection.Close
@@ -307,15 +290,13 @@ extension PreviewTransition: PreviewInteractiveTransition {
 
         guard let transitionContext = self.transitionContext,
             presenterViewController: PreviewTransitionPresenter = transitionContext.previewViewController(forKey: UITransitionContextToViewControllerKey) else {
-            return
+                return
         }
 
-        self.delegate?.previewTransitionWillHide(self)
         self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
             self.imageView.frame = presenterViewController.previewTransitionFromRect(self)
         }) { [unowned self] (finished) in
             self.finishClosure()
-            self.delegate?.previewTransitionDidHide(self)
         }
     }
 
@@ -324,15 +305,13 @@ extension PreviewTransition: PreviewInteractiveTransition {
 
         guard let transitionContext = self.transitionContext,
             toViewController: PreviewTransitionPresented = transitionContext.previewViewController(forKey: UITransitionContextFromViewControllerKey) else {
-            return
+                return
         }
 
-        self.delegate?.previewTransitionWillCancel(self)
         self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
             self.imageView.frame = toViewController.previewTransitionToRect(self)
         }) { [unowned self] (finished) in
             self.cancelClosure()
-            self.delegate?.previewTransitionDidCancel(self)
         }
     }
 }
