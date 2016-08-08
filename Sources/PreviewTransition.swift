@@ -61,8 +61,10 @@ public class PreviewTransition: NSObject, Previewable {
     public var image: UIImage? {
         return self.imageView.image
     }
+
+    private var imageViewType: UIImageView.Type = UIImageView.self
     private lazy var imageView: UIImageView = {
-        let imageView: UIImageView = UIImageView()
+        let imageView: UIImageView = self.imageViewType.init()
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
         imageView.clipsToBounds = true
         return imageView
@@ -84,6 +86,10 @@ public class PreviewTransition: NSObject, Previewable {
 
     private var finishClosure: () -> Void = {}
     private var cancelClosure: () -> Void = {}
+
+    public func registerImageViewType(imageViewType: UIImageView.Type) {
+        self.imageViewType = imageViewType
+    }
 }
 
 extension PreviewTransition {
