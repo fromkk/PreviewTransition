@@ -196,15 +196,19 @@ extension ViewController: PreviewTransitionPresenter {
         return self.collectionView.convertRect(cell.frame, toView: nil)
     }
 
-    func previewTransitionImage(previewTransition: PreviewTransition) -> UIImage? {
+    func previewTransitionImageRequest(previewTransition: PreviewTransition, completion: PreviewTransition.RequestImageCompletion) {
         guard let selectedIndexPath: NSIndexPath = self.selectedIndexPath else {
-            return nil
+            completion(image: nil)
+            return
         }
 
-        guard let cell: ViewControllerCell = self.collectionView.cellForItemAtIndexPath(selectedIndexPath) as? ViewControllerCell else {
-            return nil
+        guard let asset: PHAsset = self.fetchResult?.objectAtIndex(selectedIndexPath.row) as? PHAsset else {
+            completion(image: nil)
+            return
         }
 
-        return cell.imageView.image
+        self.imageManager.requestImageForAsset(asset, targetSize: UIScreen.mainScreen().bounds.size, contentMode: PHImageContentMode.Default, options: nil) { (image: UIImage?, info: [NSObject : AnyObject]?) in
+            completion(image: image)
+        }
     }
 }

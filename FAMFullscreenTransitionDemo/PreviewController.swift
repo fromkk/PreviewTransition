@@ -57,8 +57,8 @@ class PreviewController: UIViewController {
 }
 
 extension PreviewController: PreviewTransitionPresented {
-    func previewTransitionImage(previewTransition: PreviewTransition) -> UIImage? {
-        return self.imageView.image
+    func previewTransitionImageRequest(previewTransition: PreviewTransition, completion: PreviewTransition.RequestImageCompletion) {
+        completion(image: self.imageView.image)
     }
 
     func previewTransitionToRect(previewTransition: PreviewTransition) -> CGRect {

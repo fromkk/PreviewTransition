@@ -33,12 +33,12 @@ public protocol Previewable {
 
 @objc public protocol PreviewTransitionPresenter: class {
     func previewTransitionFromRect(previewTransition: PreviewTransition) -> CGRect
-    func previewTransitionImage(previewTransition: PreviewTransition) -> UIImage?
+    func previewTransitionImageRequest(previewTransition: PreviewTransition, completion: PreviewTransition.RequestImageCompletion) -> Void
 }
 
 @objc public protocol PreviewTransitionPresented: class {
     func previewTransitionToRect(previewTransition: PreviewTransition) -> CGRect
-    func previewTransitionImage(previewTransition: PreviewTransition) -> UIImage?
+    func previewTransitionImageRequest(previewTransition: PreviewTransition, completion: PreviewTransition.RequestImageCompletion) -> Void
 }
 
 extension UIViewControllerContextTransitioning {
@@ -48,6 +48,8 @@ extension UIViewControllerContextTransitioning {
 }
 
 public class PreviewTransition: NSObject, Previewable {
+    public typealias RequestImageCompletion = (image: UIImage?) -> Void
+
     enum PreviewDirection: Int {
         case Open
         case Close
@@ -138,7 +140,9 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
             toView.alpha = 0.0
             containerView.addSubview(self.imageView)
 
-            self.imageView.image = presenterViewController.previewTransitionImage(self)
+            presenterViewController.previewTransitionImageRequest(self, completion: { [weak self] (image) in
+                self?.imageView.image = image
+                })
             self.imageView.frame = presenterViewController.previewTransitionFromRect(self)
 
             self.transition.animation(self.transitionDuration(transitionContext), animations: { [unowned self] in
@@ -162,7 +166,9 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
 
             containerView.addSubview(self.imageView)
 
-            self.imageView.image = presentedViewController.previewTransitionImage(self)
+            presenterViewController.previewTransitionImageRequest(self, completion: { [weak self] (image) in
+                self?.imageView.image = image
+                })
             self.imageView.frame = presentedViewController.previewTransitionToRect(self)
 
             fromView.alpha = 1.0
