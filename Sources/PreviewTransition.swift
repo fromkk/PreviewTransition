@@ -26,6 +26,7 @@ public enum PreviewTransitionType {
 }
 
 public protocol Previewable {
+    var imageView: UIImageView { get }
     var openDuration: NSTimeInterval { get set }
     var closeDuration: NSTimeInterval { get set }
     var transition: PreviewTransitionType { get set }
@@ -63,7 +64,7 @@ public class PreviewTransition: NSObject, Previewable {
     }
 
     private var imageViewType: UIImageView.Type = UIImageView.self
-    private lazy var imageView: UIImageView = {
+    private (set) public lazy var imageView: UIImageView = {
         let imageView: UIImageView = self.imageViewType.init()
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
         imageView.clipsToBounds = true
