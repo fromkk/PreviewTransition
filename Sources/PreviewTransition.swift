@@ -173,7 +173,7 @@ extension PreviewTransition: UIViewControllerAnimatedTransitioning {
 
             containerView.addSubview(self.imageView)
 
-            presenterViewController.previewTransitionImageRequest(self, completion: { [weak self] (image) in
+            presentedViewController.previewTransitionImageRequest(self, completion: { [weak self] (image) in
                 self?.imageView.image = image
                 })
             self.imageView.frame = presentedViewController.previewTransitionToRect(self)
